@@ -1,0 +1,31 @@
+.suggestion {
+  display: flex;
+  margin-top: 2.5rem;
+  align-items: center;
+
+  & a {
+    display: flex;
+    align-items: center;
+  }
+
+  & img {
+    border-radius: 50%;
+    height: 3.3rem;
+    width: 3.3rem;
+  }
+
+  & h4 {
+    font-size: 1.4rem;
+    margin-left: 1.2rem;
+  }
+
+  & button {
+    margin-left: auto;
+    border: none;
+    background: transparent;
+    color: rgba(0, 92, 152, 1);
+    font-weight: bold;
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
+}

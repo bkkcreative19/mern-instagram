@@ -1,0 +1,96 @@
+.post {
+  border: 1px solid #dbdbdb;
+  border-radius: 0.4rem;
+
+  &__header {
+    padding: 0.5rem 1.4rem;
+
+    & h3 {
+      // margin-left: 0.6rem;
+      font-size: 1.6rem;
+    }
+
+    & img {
+      height: 3.2rem;
+      width: 3.2rem;
+      border-radius: 50%;
+      border-top: 1px solid #dbdbdb;
+    }
+  }
+
+  &__img {
+    & img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__footer {
+    padding: 1.5rem;
+    &-actions {
+      & i {
+        font-size: 2.6rem;
+        cursor: pointer;
+      }
+
+      & i:last-child {
+        margin-left: 1.8rem;
+      }
+    }
+
+    &-likes {
+      display: inline-block;
+      margin: 1.5rem 0 1rem;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    &-caption {
+      display: block;
+      // margin: 1.5rem 0 1rem;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    &-comments {
+      & div {
+        display: flex;
+        margin-bottom: 0.8rem;
+        font-size: 1.3rem;
+      }
+
+      & span {
+        font-weight: bold;
+      }
+      & p {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  &__commentInput {
+    width: 100%;
+    display: flex;
+    border-top: 1px solid #dbdbdb;
+
+    & input {
+      width: 100%;
+      border: none;
+      background: #fff;
+      padding: 1.8rem 0 1.8rem 1.2rem;
+    }
+
+    & button {
+      border: none;
+      background: #fff;
+      padding: 0 1.7rem;
+      color: rgba(0, 92, 152, 1);
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1.3rem;
+    }
+  }
+
+  & .date-created {
+    font-size: 1.3rem;
+  }
+}
