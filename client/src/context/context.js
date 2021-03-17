@@ -110,6 +110,35 @@ const MyContext = ({ children }) => {
     return data;
   };
 
+  const followUser = async (profileId) => {
+    const headers = {
+      "Content-Type": "application/json",
+      "x-auth-token": localStorage.getItem("auth-token"),
+    };
+    const { data } = await axios.post(`/api/follow/${profileId}/${user._id}`, {
+      headers: headers,
+    });
+    return data;
+  };
+
+  // const followUser = async (profileId) => {
+  //   console.log(JSON.parse(localStorage.getItem("auth-token")));
+  //   const { data } = await axios.post(`/api/follow/${profileId}`, {
+  //     headers: {
+  //       "x-auth-token": JSON.parse(localStorage.getItem("auth-token")),
+  //     },
+  //   });
+  //   return data;
+  // };
+  const unFollowUser = async (name) => {
+    const { data } = await axios.post(`/api/un-follow/${name}/${user._id}`, {
+      headers: {
+        "x-auth-token": JSON.parse(localStorage.getItem("auth-token")),
+      },
+    });
+    return data;
+  };
+
   return (
     <Context.Provider
       value={{
@@ -126,6 +155,8 @@ const MyContext = ({ children }) => {
         unlikePhoto,
         createComment,
         getPost,
+        followUser,
+        unFollowUser,
       }}
     >
       {children}

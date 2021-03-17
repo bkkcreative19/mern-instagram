@@ -75,18 +75,7 @@ const Post = ({ post }) => {
                 </div>
               );
             })}
-            {/* <div>
-              <span>Kris</span>
-              <p>Hi there this is a photo</p>
-            </div>
-            <div>
-              <span>Kris</span>
-              <p>Hi there this is a photo</p>
-            </div>
-            <div>
-              <span>Kris</span>
-              <p>Hi there this is a photo</p>
-            </div> */}
+          
           </div>
           <span className="date-created">
             {formatDistance(new Date(post.createdAt), new Date())} ago

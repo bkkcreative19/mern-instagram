@@ -7,7 +7,7 @@ import { Context } from "../../context/context";
 const Timeline = () => {
   const { getPosts } = useContext(Context);
   const [posts, setPosts] = useState([]);
-
+  console.log(posts);
   useEffect(() => {
     const handleGetPosts = async () => {
       const data = await getPosts();
@@ -21,7 +21,7 @@ const Timeline = () => {
 
   return (
     <div className="timeline">
-      {posts.length === 0 ? (
+      {!posts ? (
         <Skeleton count={1} width={"100%"} height={500} />
       ) : posts?.length > 0 ? (
         posts.map((post) => <Post key={post._id} post={post} />)

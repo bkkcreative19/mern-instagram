@@ -4,6 +4,12 @@ import { Context } from "../../context/context";
 import "./Suggestion.scss";
 
 const Suggestion = ({ profile }) => {
+  const { followUser } = useContext(Context);
+
+  const handleFollow = async () => {
+    await followUser(profile._id);
+  };
+
   return (
     <div className="suggestion">
       <Link to={`/p/${profile.name}`}>
@@ -11,7 +17,7 @@ const Suggestion = ({ profile }) => {
         <h4>{profile.name}</h4>
       </Link>
 
-      <button>Follow</button>
+      <button onClick={handleFollow}>Follow</button>
     </div>
   );
 };

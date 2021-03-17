@@ -24,16 +24,20 @@ const findUserById = async (id) => {
 };
 
 const getPosts = async (req, res) => {
+  const user = await findUserById(req.user);
+  const userFollowing = user.following;
+  // console.log(userFollowing);
   try {
-    const posts = await Post.find({ userId: { $ne: req.user } }).populate([
+    const posts = await Post.find({
+      userId: { $in: userFollowing },
+      // userId: { $ne: req.user },
+    }).populate([
       "userId",
       {
         path: "comments",
         populate: { path: "userId" },
       },
     ]);
-
-    // const posts = await Post.find({ userId: { $ne: req.user } }).populate();
 
     res.json(posts);
   } catch (err) {
@@ -43,8 +47,6 @@ const getPosts = async (req, res) => {
 const getPost = async (req, res) => {
   try {
     const posts = await Post.findById(req.params.postId);
-
-    // const posts = await Post.find({ userId: { $ne: req.user } }).populate();
 
     res.json(posts);
   } catch (err) {

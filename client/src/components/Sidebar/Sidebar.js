@@ -37,7 +37,7 @@ const Sidebar = () => {
             </div>
           </Link>
           <div className="sidebar__suggestions">
-            {profiles.length === 0 ? (
+            {!profiles ? (
               <Skeleton count={1} height={61} />
             ) : (
               <>

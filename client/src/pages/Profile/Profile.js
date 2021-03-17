@@ -7,10 +7,22 @@ import "./Profile.scss";
 import ProfilePost from "../../components/ProfilePost/ProfilePost";
 
 const Profile = () => {
-  const { getProfile } = useContext(Context);
+  const { getProfile, user, followUser, unFollowUser } = useContext(Context);
   const [profile, setProfile] = useState(null);
+  const [isFollowing, setIsFollowing] = useState("");
   const params = useParams();
   // console.log(params);
+
+  const handleFollow = async () => {
+    console.log("hi");
+
+    if (profile.user.followers.includes(user._id)) {
+      await unFollowUser(params.username);
+    } else {
+      await followUser(params.username);
+    }
+    // await followUser(profile._id);
+  };
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -43,7 +55,11 @@ const Profile = () => {
               <div className="profile__header-info">
                 <div className="head">
                   <h1>{profile.user.name}</h1>
-                  <button>Follow</button>
+                  <button onClick={handleFollow}>
+                    {profile.user.followers.includes(user._id)
+                      ? "unfollow"
+                      : "follow"}
+                  </button>
                 </div>
                 <div className="data">
                   <span>
