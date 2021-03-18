@@ -9,7 +9,7 @@ const auth = (req, res, next) => {
     if (!token)
       return res
         .status(401)
-        .json({ msg: "No authentication token, authorization denied nigga." });
+        .json({ msg: "No authentication token, authorization denied." });
 
     const verified = jwt.verify(token, "adnbfoesrte24fds");
     if (!verified)

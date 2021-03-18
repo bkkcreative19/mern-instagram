@@ -7,19 +7,22 @@ import "./Profile.scss";
 import ProfilePost from "../../components/ProfilePost/ProfilePost";
 
 const Profile = () => {
-  const { getProfile, user, followUser, unFollowUser } = useContext(Context);
+  const { getProfile, user, followUser } = useContext(Context);
   const [profile, setProfile] = useState(null);
-  const [isFollowing, setIsFollowing] = useState("");
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [followers, setFollowers] = useState(0);
   const params = useParams();
   // console.log(params);
-
+  console.log(profile);
   const handleFollow = async () => {
-    console.log("hi");
-
-    if (profile.user.followers.includes(user._id)) {
-      await unFollowUser(params.username);
+    if (!isFollowing) {
+      setIsFollowing(!isFollowing);
+      setFollowers(followers + 1);
+      await followUser(params.username, "follow");
     } else {
-      await followUser(params.username);
+      setIsFollowing(!isFollowing);
+      setFollowers(followers - 1);
+      await followUser(params.username, "unfollow");
     }
     // await followUser(profile._id);
   };
@@ -27,17 +30,13 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       const data = await getProfile(params.username);
-      // console.log(data);
+      setIsFollowing(data.user.followers.includes(user._id));
+      setFollowers(data.user.followers.length);
       setProfile(data);
     };
-    // const hi = () => {
-    //   console.log("hi");
-    // };
-    // hi();
-    fetchProfile();
-  }, []);
 
-  console.log(profile);
+    fetchProfile();
+  }, [user.following]);
 
   return (
     <>
@@ -55,11 +54,13 @@ const Profile = () => {
               <div className="profile__header-info">
                 <div className="head">
                   <h1>{profile.user.name}</h1>
-                  <button onClick={handleFollow}>
-                    {profile.user.followers.includes(user._id)
-                      ? "unfollow"
-                      : "follow"}
-                  </button>
+                  {profile.user.name === user.name ? (
+                    <button>edit</button>
+                  ) : (
+                    <button onClick={handleFollow}>
+                      {isFollowing ? "unfollow" : "follow"}
+                    </button>
+                  )}
                 </div>
                 <div className="data">
                   <span>
@@ -67,7 +68,7 @@ const Profile = () => {
                     <p>photos</p>
                   </span>
                   <span>
-                    {profile.user.followers.length}
+                    {followers}
                     <p>followers</p>
                   </span>
                   <span>

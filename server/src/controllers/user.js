@@ -193,7 +193,7 @@ const signin = async (req, res) => {
           return res.status(400).json({ errors: [{ password: "incorrect" }] });
         }
 
-        let access_token = createJWT(user.email, user._id, 3600);
+        let access_token = createJWT(user.email, user._id, 360000);
 
         jwt.verify(access_token, "adnbfoesrte24fds", (err, decoded) => {
           console.log(err);

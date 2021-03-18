@@ -1,32 +1,39 @@
 import User from "../models/user.js";
 
 const handleFollow = async (req, res) => {
-  const profileLookUp = await User.findOne({ name: req.params.profileId });
-  const user = await User.findById(req.params.userId);
+  const profileLookUp = await User.findOne({ name: req.body.profileId });
+  const userLookUp = await User.findById(req.body.userId);
+  // console.log(profileLookUp);
+  const profile = { name: req.body.profileId };
 
-  user.following.push(profileLookUp._id);
-  profileLookUp.followers.push(req.params.userId);
-  user.save();
-  profileLookUp.save();
-  res.send("hi");
-};
-const handleUnFollow = async (req, res) => {
-  //   console.log(req.params);
-  const profileLookUp = await User.findOne({ name: req.params.profileId });
-  const user = await User.findById(req.params.userId);
+  try {
+    switch (req.body.type) {
+      case "follow":
+        await Promise.all([
+          User.findOneAndUpdate(profile, {
+            $push: { followers: userLookUp._id },
+          }),
+          User.findByIdAndUpdate(req.body.userId, {
+            $push: { following: profileLookUp._id },
+          }),
+        ]);
 
-  profileLookUp.followers.forEach((item, id) => {
-    if (item.toString() === req.params.userId) {
-      profileLookUp.followers.splice(id, 1);
-      profileLookUp.save();
+        break;
+
+      case "unfollow":
+        await Promise.all([
+          User.findOneAndUpdate(profile, {
+            $pull: { followers: userLookUp._id },
+          }),
+          User.findByIdAndUpdate(req.body.userId, {
+            $pull: { following: profileLookUp._id },
+          }),
+        ]);
+
+      default:
+        break;
     }
-  });
-  user.following.forEach((item, id) => {
-    if (item.toString() === req.params.userId) {
-      user.following.splice(id, 1);
-      user.save();
-    }
-  });
+  } catch (err) {}
 };
 
-export { handleFollow, handleUnFollow };
+export { handleFollow };

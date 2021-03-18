@@ -7,7 +7,7 @@ const Suggestion = ({ profile }) => {
   const { followUser } = useContext(Context);
 
   const handleFollow = async () => {
-    await followUser(profile._id);
+    await followUser(profile.name, "follow");
   };
 
   return (
