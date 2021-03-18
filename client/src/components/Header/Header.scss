@@ -7,9 +7,18 @@
     padding: 1.5rem 0;
     justify-content: space-between;
 
-    &-list {
+    &-logo {
       display: flex;
       align-items: center;
+
+      & a {
+        justify-self: center;
+      }
+    }
+
+    &-list {
+      display: flex;
+      // align-items: center;
 
       & a:first-child {
         margin-right: 0.7rem;
@@ -29,5 +38,6 @@
 
   & img {
     width: 50%;
+    transform: translateY(25%);
   }
 }

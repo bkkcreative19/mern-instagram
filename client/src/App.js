@@ -10,11 +10,6 @@ const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
 const Profile = lazy(() => import("./pages/Profile/Profile"));
 
 const App = () => {
-  const { getUser } = useContext(Context);
-
-  useEffect(() => {
-    getUser();
-  }, []);
   return (
     <>
       <Suspense fallback={<p>Loading...</p>}>

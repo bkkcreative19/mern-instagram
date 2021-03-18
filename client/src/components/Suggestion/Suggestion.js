@@ -1,13 +1,19 @@
 import React, { useContext, useState, useEffect } from "react";
+import LoadingIcons from "react-loading-icons";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/context";
 import "./Suggestion.scss";
 
 const Suggestion = ({ profile }) => {
   const { followUser } = useContext(Context);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleFollow = async () => {
-    await followUser(profile.name, "follow");
+    setLoading(true);
+    const data = await followUser(profile.name, "follow");
+    setLoading(false);
+    setIsFollowing(true);
   };
 
   return (
@@ -17,7 +23,16 @@ const Suggestion = ({ profile }) => {
         <h4>{profile.name}</h4>
       </Link>
 
-      <button onClick={handleFollow}>Follow</button>
+      {loading && !isFollowing ? (
+        <LoadingIcons.SpinningCircles
+          style={{ height: "1.7rem" }}
+          stroke="#333"
+        />
+      ) : (
+        <button onClick={handleFollow}>
+          {isFollowing ? "Following" : "Follow"}
+        </button>
+      )}
     </div>
   );
 };

@@ -1,8 +1,38 @@
 .profilePost {
   width: 100%;
+  position: relative;
+  cursor: pointer;
 
   & img {
     width: 100%;
     height: 100%;
+  }
+
+  & .info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    display: none;
+
+    & div {
+      font-size: 1.7rem;
+
+      & span {
+        margin-left: 0.5rem;
+      }
+    }
+
+    & div:last-child {
+      margin-left: 2.5rem;
+    }
+  }
+
+  &:hover img {
+    filter: brightness(0.4);
+  }
+  &:hover .info {
+    display: flex;
   }
 }

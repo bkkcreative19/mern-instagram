@@ -2,6 +2,10 @@
   border: 1px solid #dbdbdb;
   border-radius: 0.4rem;
 
+  & a:hover {
+    text-decoration: underline;
+  }
+
   &__header {
     padding: 0.5rem 1.4rem;
 
@@ -45,23 +49,41 @@
       font-size: 1.5rem;
     }
     &-caption {
-      display: block;
       // margin: 1.5rem 0 1rem;
-      font-weight: bold;
-      font-size: 1.5rem;
-    }
+      display: flex;
 
-    &-comments {
-      & div {
-        display: flex;
-        margin-bottom: 0.8rem;
-        font-size: 1.3rem;
+      font-size: 1.4rem;
+
+      & a {
+        font-weight: bold;
       }
 
       & span {
+        margin-left: 0.6rem;
+      }
+    }
+
+    &-comments {
+      & .view-all {
+        font-size: 1.4rem;
+        display: inline-block;
+        margin: 0.4rem 0;
+        opacity: 0.4;
+      }
+
+      & div {
+        display: flex;
+        font-size: 1.4rem;
+      }
+
+      & div:not(:last-child) {
+        margin-bottom: 0.7rem;
+      }
+
+      & a {
         font-weight: bold;
       }
-      & p {
+      & span {
         margin-left: 0.5rem;
       }
     }
@@ -91,6 +113,12 @@
   }
 
   & .date-created {
+    display: inline-block;
     font-size: 1.3rem;
+    margin-top: 0.5rem;
   }
+}
+
+.top {
+  margin-top: 0.5rem;
 }

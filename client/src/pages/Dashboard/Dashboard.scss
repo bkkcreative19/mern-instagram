@@ -3,4 +3,13 @@
   gap: 2rem;
   align-items: flex-start;
   margin-top: 2rem;
+
+  @media screen and (max-width: 1000px) {
+    & .sidebar {
+      display: none;
+    }
+    & .timeline {
+      flex: 4;
+    }
+  }
 }

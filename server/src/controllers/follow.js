@@ -33,6 +33,7 @@ const handleFollow = async (req, res) => {
       default:
         break;
     }
+    res.json("hi");
   } catch (err) {}
 };
 

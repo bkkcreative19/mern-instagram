@@ -12,8 +12,7 @@ const Profile = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [followers, setFollowers] = useState(0);
   const params = useParams();
-  // console.log(params);
-  console.log(profile);
+
   const handleFollow = async () => {
     if (!isFollowing) {
       setIsFollowing(!isFollowing);
@@ -55,7 +54,7 @@ const Profile = () => {
                 <div className="head">
                   <h1>{profile.user.name}</h1>
                   {profile.user.name === user.name ? (
-                    <button>edit</button>
+                    ""
                   ) : (
                     <button onClick={handleFollow}>
                       {isFollowing ? "unfollow" : "follow"}
@@ -65,11 +64,11 @@ const Profile = () => {
                 <div className="data">
                   <span>
                     {profile.posts.length}
-                    <p>photos</p>
+                    <p>{profile.posts.length === 1 ? "photo" : "photos"}</p>
                   </span>
                   <span>
                     {followers}
-                    <p>followers</p>
+                    <p>{followers === 1 ? "follower" : "followers"}</p>
                   </span>
                   <span>
                     {profile.user.following.length}

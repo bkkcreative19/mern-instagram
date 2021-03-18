@@ -7,7 +7,7 @@ import { Context } from "../../context/context";
 const Timeline = () => {
   const { getPosts } = useContext(Context);
   const [posts, setPosts] = useState([]);
-  console.log(posts);
+
   useEffect(() => {
     const handleGetPosts = async () => {
       const data = await getPosts();

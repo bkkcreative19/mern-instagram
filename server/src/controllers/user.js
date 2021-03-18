@@ -73,70 +73,11 @@ const signup = async (req, res, next) => {
       errors: [{ error: "Something went wrong" }],
     });
   }
-
-  //   User.findOne({ email: email })
-  //     .then((user) => {
-  //       if (user) {
-  //         return res
-  //           .status(422)
-  //           .json({ errors: [{ user: "email already exists" }] });
-  //       } else {
-  //         const user = new User({
-  //           name: name,
-  //           email: email,
-  //           password: password,
-  //         });
-  //         bcrypt.genSalt(10, function (err, salt) {
-  //           bcrypt.hash(password, salt, function (err, hash) {
-  //             if (err) throw err;
-  //             user.password = hash;
-  //             user
-  //               .save()
-  //               .then((response) => {
-  //                 res.status(200).json({
-  //                   success: true,
-  //                   result: response,
-  //                 });
-  //               })
-  //               .catch((err) => {
-  //                 res.status(500).json({
-  //                   errors: [{ error: err }],
-  //                 });
-  //               });
-  //           });
-  //         });
-  //       }
-  //     })
-  //     .catch((err) => {
-
-  //     });
 };
 
-// const getUser = async (req, res, next) => {
-//   const user = await User.findById(req.user);
-//   if (user) {
-//     res.json({
-//       _id: user._id,
-//       name: user.name,
-//       email: user.email,
-//       fullName: user.fullName,
-//       logoImg: user.logoImg,
-//       followers: user.followers,
-//       following: user.following,
-//     });
-//   } else {
-//     res.status(404);
-//     throw new Error("User not found");
-//   }
-// }
-
 const getProfile = async (req, res, next) => {
-  // console.log(req.user);
-
   const user = await User.findOne({ name: req.params.name });
   const posts = await getPostsByUser(user._id);
-
-  // console.log(user);
 
   const response = {
     user,
@@ -149,11 +90,8 @@ const getProfile = async (req, res, next) => {
     res.status(404);
     throw new Error("User not found");
   }
-  // // res.send("hi");
 };
 const getUser = async (req, res, next) => {
-  // console.log(req.user);
-
   const user = await User.findById(req.user);
 
   if (user) {
@@ -162,7 +100,6 @@ const getUser = async (req, res, next) => {
     res.status(404);
     throw new Error("User not found");
   }
-  // // res.send("hi");
 };
 const signin = async (req, res) => {
   let { email, password } = req.body;
@@ -177,6 +114,7 @@ const signin = async (req, res) => {
     errors.push({ password: "required" });
   }
   if (errors.length > 0) {
+    console.log(errors);
     return res.status(422).json({ errors: errors });
   }
 
@@ -215,12 +153,6 @@ const signin = async (req, res) => {
   } catch (err) {
     res.status(500).json({ errors: err });
   }
-
-  // .then((user) => {
-  //   if (!user) {
-  //     return res.status(404).json({
-  //       errors: [{ user: "not found" }],
-  //     });
 };
 
 // const isValid = async (req, res) => {
@@ -239,16 +171,10 @@ const signin = async (req, res) => {
 // };
 
 const getSuggestedProfiles = async (req, res, next) => {
-  // const suggested = await User.find(
-  //   { _id: { $ne: req.user } },
-  //   { followers: req.user }
-  // );
   const suggested = await User.find({
     $and: [{ _id: { $ne: req.user } }, { followers: { $ne: req.user } }],
   });
-  // const test = await User.find({
-  //   followers: req.user,
-  // });
+
   res.json(suggested);
 };
 

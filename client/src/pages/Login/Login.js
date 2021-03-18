@@ -11,8 +11,9 @@ const Login = () => {
   const { login } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState(null);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const obj = {
       email,
@@ -20,8 +21,10 @@ const Login = () => {
     };
 
     try {
-      login(obj, history);
-    } catch (err) {}
+      await login(obj, history);
+    } catch (err) {
+      // setErrors(err);
+    }
   };
 
   return (
@@ -41,6 +44,7 @@ const Login = () => {
               onSubmit={handleLogin}
               className="login__right-container-form"
             >
+              {errors}
               <input
                 type="text"
                 placeholder="Email Address"
